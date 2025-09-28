@@ -1,0 +1,67 @@
+services:
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  zookeeper:
+    image: wurstmeister/zookeeper
+    ports:
+      - "2181:2181"
+
+  kafka:
+    image: wurstmeister/kafka
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
+
+  users_service:
+    build:
+      context: ./backend/users_service
+      dockerfile: Dockerfile
+    ports:
+      - "5005:5000"
+    depends_on:
+      - mongo
+      - kafka
+
+  hotel_service:
+    build:
+      context: ./backend/hotel_service
+      dockerfile: Dockerfile
+    ports:
+      - "5006:5000"
+    depends_on:
+      - mongo
+      - kafka
+
+  food_service:
+    build:
+      context: ./backend/food_service
+      dockerfile: Dockerfile
+    ports:
+      - "5007:5000"
+    depends_on:
+      - mongo
+      - kafka
+
+  react-app:
+    build:
+      context: ./frontend/react-app
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3000"
+    depends_on:
+      - users_service
+      - hotel_service
+      - food_service
+
+volumes:
+  mongo-data:

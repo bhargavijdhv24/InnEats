@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package proto;
+
+service FoodService {
+    rpc PlaceOrder(OrderRequest) returns (OrderResponse);
+}
+
+message OrderRequest {
+    string user_id = 1;
+    string restaurant_id = 2;
+    repeated string items = 3;
+}
+
+message OrderResponse {
+    bool success = 1;
+    string message = 2;
+}

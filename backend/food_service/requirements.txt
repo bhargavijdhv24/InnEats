@@ -1,0 +1,5 @@
+flask
+pymongo
+kafka-python
+grpcio
+protobuf

@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package proto;
+
+service HotelService {
+    rpc CheckAvailability(BookingRequest) returns (AvailabilityResponse);
+}
+
+message BookingRequest {
+    string hotel_id = 1;
+    string room_type = 2;
+    int32 nights = 3;
+}
+
+message AvailabilityResponse {
+    bool available = 1;
+    string message = 2;
+}
