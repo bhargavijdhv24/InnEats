@@ -11,9 +11,9 @@ Built using Flask, MongoDB, React.js, gRPC, Apache Kafka, and Docker.
    docker-compose up --build
    ```
 4. Access frontend: http://localhost:3000
-   Users API: http://localhost:5000
-   Hotels API: http://localhost:5001
-   Food API: http://localhost:5002
+   Users API: http://localhost:5005
+   Hotels API: http://localhost:5006
+   Food API: http://localhost:5007
 
 ## Structure
 - backend/: Flask microservices (users, hotel, food)
@@ -21,5 +21,3 @@ Built using Flask, MongoDB, React.js, gRPC, Apache Kafka, and Docker.
 - grpc/proto: protobuf definitions
 - kafka/: minimal utilities
 
-## Notes
-- This repository is a starter template. For production: secure secrets, use proper TLS for gRPC/Kafka, configure persistence volumes for MongoDB, and use managed Kafka for scale.
